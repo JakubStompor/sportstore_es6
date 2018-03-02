@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="sportstore">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AngularJS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Scripts -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.js"></script>
+    <script src="https://code.angularjs.org/1.2.22/i18n/angular-locale_pl-pl.js"></script>
+    <script>
+        angular.module("sportstore", ["ngRoute", "customFilters", "cart"])
+            .config(['$routeProvider', ($routeProvider) => {
+                $routeProvider.when("/checkout", {
+                    templateUrl: "/views/checkoutSummary.html"
+                }).when("/complete", {
+                    templateUrl: "/views/thankYou.html"
+                }).when("/placeorder", {
+                    templateUrl: "/views/placeOrder.html"
+                }).when("/products", {
+                    templateUrl: "/views/productList.html"
+                }).otherwise({
+                    templateUrl: "/views/productList.html"
+                });
+            }]);
+    </script>
+    <script src="controllers/sportstore.js"></script>
+    <script src="filters/customFilters.js"></script>
+    <script src="controllers/productListCtrl.js"></script>
+    <script src="components/cart/cart.js"></script>
+    <script src="controllers/checkOutControllers.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body ng-controller="sportstoreCtrl">
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#">Sklep sportowy</a>
+        <cart-summary />
+    </div>
+    <div class="alert alert-danger" ng-show="data.error">
+        Błąd {{data.error.status}}. Dane produktu nie zostały wczytane.
+        <a href="/app.html" class="alert-link">Kliknij tutaj, aby spróbować ponownie</a>
+    </div>
+    <ng-view />
+</body>
+
+</html>
