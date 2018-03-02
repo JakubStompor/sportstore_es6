@@ -1,6 +1,6 @@
 angular.module("sportstoreAdmin")
     .constant("productUrl", "http://localhost:5500/products/")
-    .config(function ($httpProvider) {
+    .config(($httpProvider) => {
         $httpProvider.defaults.withCredentials = true;
     }).controller("productCtrl", ($scope, $resource, productUrl) => {
         $scope.productResource = $resource(productUrl + ":id", {
@@ -20,14 +20,14 @@ angular.module("sportstoreAdmin")
                 $scope.editedProduct = null;
             })
         }
-        $scope.updateProduct = function (product) {
+        $scope.updateProduct = (product) => {
             product.$save();
             $scope.editedProduct = null;
         }
-        $scope.startEdit = function (product) {
+        $scope.startEdit = (product) => {
             $scope.editedProduct = product;
         }
-        $scope.cancelEdit = function () {
+        $scope.cancelEdit = () => {
             $scope.editedProduct = null;
         }
         $scope.listProducts();
